@@ -3,6 +3,7 @@
  */
 
 import { render, unmountComponentAtNode } from '@wordpress/element';
+import { registerBlockType } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -112,4 +113,5 @@ window.wp = {
 	...( window.wp ?? {} ),
 	attachEditor,
 	detachEditor,
+	registerBlockType,
 };

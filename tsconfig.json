@@ -43,7 +43,7 @@
 		"skipLibCheck": true,
 	},
 	"include": [
-		"src/**/*"
+		"resources/js/**/*"
 	],
 	"exclude": [
 		"node_modules",
