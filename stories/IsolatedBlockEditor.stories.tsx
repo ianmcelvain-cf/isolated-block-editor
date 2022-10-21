@@ -105,3 +105,17 @@ export const MultipleEditors = ( { count } ) => {
 	);
 };
 MultipleEditors.args = { count: 2 };
+
+export const MediaUpload = () => {
+	return (
+		<IsolatedBlockEditor settings={ {
+			editor: {
+				mediaUpload: (whatIsThis) => {
+					console.log(whatIsThis);
+					return true;
+				},
+				allowedMimeTypes: ['image/png'],
+			}
+		} } />
+	);
+};

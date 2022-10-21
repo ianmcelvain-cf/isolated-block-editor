@@ -172,7 +172,32 @@ export function useInitializeIsoEditor() {
 
   use(storeHotSwapPlugin, {}); // This is needed for the media uploader
 
-  addFilter('editor.MediaUpload', 'isolated-block-editor/media-upload', () => MediaUpload);
+  addFilter('editor.MediaUpload', 'isolated-block-editor/media-upload', () => MyMediaUploader, 11);
+
+  function MyMediaUploader(props) {
+    const {
+      onSelect
+    } = props;
+
+    const test = () => {
+      onSelect({
+        id: 1,
+        mime: 'image/png',
+        type: 'image',
+        subtype: 'png',
+        url: 'https://via.placeholder.com/300/09/fff.png',
+        alt: '',
+        link: 'https://google.com.hk',
+        caption: 'test'
+      });
+    };
+
+    return createElement("button", {
+      className: "components-button is-primary",
+      onClick: test
+    }, "My Media Library");
+  }
+
   registerApiHandlers(); // Don't run this again
 
   window.isoInitialisedBlocks = true;

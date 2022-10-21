@@ -4,6 +4,8 @@
 
 import { render, unmountComponentAtNode } from '@wordpress/element';
 import { registerBlockType } from '@wordpress/blocks';
+import * as blockEditor from '@wordpress/block-editor';
+import { addFilter } from '@wordpress/hooks';
 
 /**
  * Internal dependencies
@@ -59,7 +61,7 @@ function onLoad( content, parser, rawHandler ) {
  * @param {HTMLTextAreaElement} textarea Textarea node
  * @param {BlockEditorSettings} userSettings Settings object
  */
-function attachEditor( textarea, userSettings = {} ) {
+function attachEditor( textarea, userSettings = {}, mediaUploadHandler = undefined ) {
 	// Check it's a textarea
 	if ( textarea.type.toLowerCase() !== 'textarea' ) {
 		return;
@@ -73,6 +75,10 @@ function attachEditor( textarea, userSettings = {} ) {
 	// @ts-ignore
 	textarea.parentNode.insertBefore( editor, textarea.nextSibling );
 	textarea.style.display = 'none';
+
+	if (mediaUploadHandler) {
+		addFilter( 'editor.MediaUpload', 'isolated-block-editor/media-upload', () => mediaUploadHandler, 11 );
+	}
 
 	// Render the editor
 	render(
@@ -114,4 +120,5 @@ window.wp = {
 	attachEditor,
 	detachEditor,
 	registerBlockType,
+	blockEditor
 };
